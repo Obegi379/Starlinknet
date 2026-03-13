@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Starlink · Official M‑PESA Till 3509782</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: #0b1423;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1.5rem 1rem;
+        }
+
+        .phone-frame {
+            max-width: 440px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2.5rem 2.5rem 2rem 2rem;
+            overflow: hidden;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.7), 0 0 0 2px #1f3a5f inset;
+        }
+
+        .header {
+            background: #0a1c2f;
+            padding: 1.8rem 1.5rem 1.2rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #2b4b73;
+        }
+
+        .starlink-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .starlink-title i {
+            color: #8bb9fe;
+        }
+
+        .powered {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .powered span {
+            background: #1f3f5c;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #c0d8f0;
+        }
+
+        .badge-4g5g {
+            background: #d97706;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-left: auto;
+            color: white;
+        }
+
+        .affordable {
+            background: #edf3fa;
+            padding: 1.2rem 1.5rem 0.8rem 1.5rem;
+            border-bottom: 1px solid #bfd3e8;
+        }
+
+        .affordable h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0b1f33;
+        }
+
+        .affordable p {
+            color: #2b4058;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: 0.6rem;
+            margin: 1rem 0 0.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            background: white;
+            border: 1px solid #a3bbd3;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #15304c;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .chip.active {
+            background: #103450;
+            color: white;
+            border-color: #103450;
+        }
+
+        .chip-light {
+            background: transparent;
+            border: none;
+            color: #2563eb;
+            cursor: default;
+        }
+
+        .bundles-container {
+            padding: 1.2rem 1.2rem 2rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 1.5rem 0 0.2rem 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0a2647;
+        }
+
+        .section-head i {
+            color: #f97316;
+            font-size: 1.7rem;
+        }
+
+        .section-desc {
+            font-size: 0.85rem;
+            color: #4a5f7a;
+            margin-bottom: 16px;
+        }
+
+        .bundle-card {
+            background: #f6faff;
+            border-radius: 24px;
+            padding: 1rem 1.2rem;
+            margin-bottom: 0.9rem;
+            border: 1px solid #d5e1f0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.15s;
+        }
+
+        .bundle-card:hover {
+            border-color: #4b6f9c;
+        }
+
+        .info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0b2b4a;
+        }
+
+        .info .descr {
+            font-size: 0.8rem;
+            color: #4a6380;
+            margin: 4px 0 2px 0;
+        }
+
+        .price-section {
+            text-align: right;
+            min-width: 100px;
+        }
+
+        .price {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: #0b2b44;
+            line-height: 1.2;
+        }
+
+        .currency {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #6f86a3;
+            display: block;
+        }
+
+        .buy-btn {
+            background: white;
+            border: 1.5px solid #1f3a6b;
+            color: #1f3a6b;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 0.4rem 1.4rem;
+            border-radius: 40px;
+            margin-top: 6px;
+            display: inline-block;
+            cursor: pointer;
+            background: #ecf3fd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: 0.1s;
+        }
+
+        .buy-btn:hover {
+            background: #1f3a6b;
+            color: white;
+        }
+
+        .popular-badge {
+            background: #fbbf24;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.7rem;
+            color: #0b1e2e;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 12px;
+        }
+
+        .special-bundles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-top: 1rem;
+            background: #eaf0fa;
+            border-radius: 24px;
+            padding: 1.2rem 1rem;
+            border: 1px dashed #2f5597;
+            justify-content: space-around;
+        }
+
+        .special-item {
+            text-align: center;
+            min-width: 90px;
+        }
+
+        .special-item .top {
+            font-weight: 600;
+            color: #021d3b;
+            font-size: 0.9rem;
+        }
+
+        .special-item .big {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0b2b44;
+        }
+
+        .special-item .ksh {
+            font-size: 0.7rem;
+            color: #51718c;
+            font-weight: 500;
+        }
+
+        .special-popular {
+            background: #fbbf24;
+            padding: 0.15rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            font-weight: 800;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .footer-note {
+            font-size: 0.7rem;
+            color: #7e95b0;
+            text-align: center;
+            padding: 0.8rem 0.2rem;
+            border-top: 1px solid #d7e2f0;
+            margin-top: 1.5rem;
+        }
+
+        hr {
+            border: 0.5px solid #cbd6e6;
+            margin: 1.2rem 0 0.8rem 0;
+        }
+
+        .hidden-section {
+            display: none !important;
+        }
+
+        /* ========== OFFICIAL SAFARICOM LIPA NA M-PESA BANNER ========== */
+        .lipa-official {
+            background: linear-gradient(165deg, #0f3b5e 0%, #1d547a 100%);
+            border: 2px solid #ffc107;
+            border-radius: 40px;
+            margin: 1.2rem 0 0.8rem 0;
+            padding: 0.8rem 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 6px 0 #0d324a;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .lipa-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lipa-left i {
+            font-size: 2.8rem;
+            color: #ffc107;
+            filter: drop-shadow(0 2px 2px #00000050);
+        }
+
+        .lipa-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lipa-label {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ffdb8e;
+            font-weight: 600;
+        }
+
+        .lipa-merchant {
+            font-size: 1.3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .lipa-merchant .dot {
+            width: 6px;
+            height: 6px;
+            background: #ffc107;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 4px;
+        }
+
+        /* FIXED: reduced font-size so till number fits as "3509782" */
+        .till-display {
+            background: white;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 1.7rem;        /* reduced from 2rem to 1.7rem for perfect fit */
+            font-weight: 800;
+            color: #0b2b44;
+            letter-spacing: 2px;        /* slightly reduced letter-spacing */
+            box-shadow: inset 0 -2px 0 #aaaaaa;
+            border: 2px solid #ffc107;
+            line-height: 1.3;
+            white-space: nowrap;        /* prevent wrapping */
+        }
+
+        /* ---------- SAFARICOM-STYLE TRANSACTION CODE MODAL ---------- */
+        .stk-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            padding: 1rem;
+        }
+
+        .stk-card {
+            background: #eaf1fa;
+            max-width: 400px;
+            width: 100%;
+            border-radius: 48px 48px 36px 36px;
+            border: 4px solid #103450;
+            box-shadow: 0 25px 40px black;
+            overflow: hidden;
+            animation: toolkitPop 0.2s;
+        }
+
+        @keyframes toolkitPop {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .stk-header {
+            background: #0b2b44;
+            color: white;
+            padding: 1.4rem 1.2rem 1rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stk-header i {
+            font-size: 2.3rem;
+            color: #ffc107;
+        }
+
+        .stk-header h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .stk-content {
+            padding: 1.8rem 1.2rem 2rem 1.2rem;
+            background: #f4faff;
+        }
+
+        .till-info {
+            background: #cfdef5;
+            border-radius: 30px;
+            padding: 1.2rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1.8rem;
+            border: 2px solid #4b6f9c;
+        }
+
+        .till-info i {
+            font-size: 2.8rem;
+            color: #1e3a5f;
+        }
+
+        .till-details {
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .till-details small {
+            color: #153558;
+            font-size: 0.9rem;
+        }
+
+        .till-details div {
+            font-size: 2rem;
+            color: #001c3d;
+            letter-spacing: 3px;
+        }
+
+        .stk-amount-box {
+            background: white;
+            border-radius: 40px;
+            padding: 1rem 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border: 3px solid #2f5597;
+            margin: 1.5rem 0;
+        }
+
+        .stk-amount-box i {
+            font-size: 2rem;
+            color: #2f5597;
+        }
+
+        .stk-amount-box .amount-display {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0b2b44;
+            letter-spacing: 1px;
+        }
+
+        .transaction-input {
+            background: white;
+            border-radius: 40px;
+            padding: 0.5rem 1.2rem;
+            display: flex;
+            align-items: center;
+            border: 3px solid #2f5597;
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .transaction-input i {
+            color: #2f5597;
+            font-size: 1.8rem;
+            margin-right: 12px;
+        }
+
+        .transaction-input input {
+            border: none;
+            background: transparent;
+            font-size: 1.2rem;
+            width: 100%;
+            outline: none;
+            font-weight: 500;
+            color: #102b44;
+            letter-spacing: 1px;
+        }
+
+        .transaction-input input::placeholder {
+            color: #96adcc;
+            font-size: 1rem;
+        }
+
+        .stk-footer {
+            display: flex;
+            gap: 12px;
+            margin-top: 2rem;
+        }
+
+        .stk-btn {
+            flex: 1;
+            background: white;
+            border: 3px solid #103450;
+            color: #103450;
+            padding: 1rem 0;
+            font-weight: 800;
+            font-size: 1.2rem;
+            border-radius: 60px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.1s;
+        }
+
+        .stk-btn.send {
+            background: #1e4f85;
+            color: white;
+            border: 3px solid #103450;
+        }
+
+        .stk-btn.send:hover {
+            background: #123b60;
+        }
+
+        .stk-btn:active {
+            transform: scale(0.97);
+        }
+
+        .stk-badge {
+            text-align: center;
+            font-size: 0.85rem;
+            margin-top: 1.2rem;
+            color: #1f3a5f;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .stk-badge i {
+            color: #ffc107;
+        }
+
+        /* toast for success */
+        .toast-message {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0c4123;
+            color: white;
+            padding: 16px 30px;
+            border-radius: 60px;
+            font-weight: 600;
+            box-shadow: 0 15px 30px black;
+            z-index: 3500;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            border-left: 8px solid #8bc34a;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SAFARICOM-STYLE TRANSACTION CODE MODAL -->
+    <div id="stkToolkit" class="stk-overlay">
+        <div class="stk-card">
+            <div class="stk-header">
+                <i class="fas fa-sim-card"></i>
+                <h3>Lipa na M-PESA</h3>
+            </div>
+            <div class="stk-content">
+                <!-- TILL number static: 3509782 (official) -->
+                <div class="till-info">
+                    <i class="fas fa-store-alt"></i>
+                    <div class="till-details">
+                        <small>OFFICIAL TILL NUMBER</small>
+                        <div>3509782</div>
+                    </div>
+                </div>
+
+                <!-- Bundle name & amount (dynamic) -->
+                <div style="font-weight: 600; color: #0a1e36; margin-bottom: 0.5rem;">
+                    <i class="fas fa-wifi"></i> <span id="stkBundleName">24h 5GB</span>
+                </div>
+
+                <div class="stk-amount-box">
+                    <i class="fas fa-coins"></i>
+                    <span class="amount-display" id="stkAmount">Ksh 70</span>
+                </div>
+
+                <!-- Transaction Code input (required) -->
+                <div class="transaction-input">
+                    <i class="fas fa-receipt"></i>
+                    <input type="text" id="transactionCode" placeholder="Enter M-PESA transaction code" maxlength="15">
+                </div>
+                <div style="font-size:0.75rem; color:#4a6380; text-align:left; margin:0 0 1rem 0;">
+                    <i class="fas fa-info-circle"></i> e.g., NLJ7RT61SV
+                </div>
+
+                <div class="stk-footer">
+                    <div class="stk-btn cancel" id="stkCancelBtn">Cancel</div>
+                    <div class="stk-btn send" id="stkSendBtn">Verify & Activate</div>
+                </div>
+                <div class="stk-badge">
+                    <i class="fas fa-shield-alt"></i> Official Till 3509782 · Starlink
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCCESS TOAST -->
+    <div id="successToast" class="toast-message">
+        <i class="fas fa-check-circle" style="font-size: 1.6rem;"></i>
+        <span id="toastText">Bundle activated! Thank you.</span>
+    </div>
+
+    <!-- MAIN BUNDLES PAGE -->
+    <div class="phone-frame">
+        <div class="header">
+            <div class="starlink-title">
+                <i class="fas fa-satellite"></i> Starlink
+                <span class="badge-4g5g">4G/5G</span>
+            </div>
+            <div class="powered">
+                Kenya's fastest <span><i class="fas fa-bolt"></i> Safaricom</span>
+            </div>
+        </div>
+
+        <div class="affordable">
+            <h2>Affordable Data Bundles</h2>
+            <p>Select from our wide range of data plans</p>
+            <!-- Filter chips -->
+            <div class="filter-chips">
+                <span class="chip active" data-filter="daily" id="filterDaily">Daily</span>
+                <span class="chip" data-filter="weekly" id="filterWeekly">Weekly</span>
+                <span class="chip" data-filter="monthly" id="filterMonthly">Monthly</span>
+                <span class="chip" data-filter="unlimited" id="filterUnlimited">Unlimited</span>
+            </div>
+            <!-- OFFICIAL SAFARICOM-STYLE LIPA NA M-PESA BANNER (with fixed till size) -->
+            <div class="lipa-official">
+                <div class="lipa-left">
+                    <i class="fas fa-university"></i>
+                    <div class="lipa-text">
+                        <span class="lipa-label">Lipa Na M-Pesa</span>
+                        <span class="lipa-merchant">
+                            Starlink Kenya <span class="dot"></span> <i class="fas fa-check-circle" style="color:#ffc107; font-size:1rem;"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="till-display">
+                    3509782
+                </div>
+            </div>
+        </div>
+
+        <div class="bundles-container">
+            <!-- DAILY SECTION -->
+            <div id="dailySection" class="bundle-section">
+                <div class="section-head"><i class="fas fa-fire"></i> Daily Bundles</div>
+                <div class="section-desc">Pay via official Till 3509782</div>
+                <div class="bundle-card" data-name="24h 5GB" data-price="70">
+                    <div class="info"><h3>24 Hours · 5GB</h3><div class="descr">Heavy usage</div></div>
+                    <div class="price-section"><div class="price">Ksh 70</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="70" data-name="24h 5GB">BUY</div></div>
+                </div>
+                <div class="bundle-card" data-name="24h 10GB" data-price="120">
+                    <div class="info"><h3>24 Hours · 10GB</h3><div class="descr">Double data</div></div>
+                    <div class="price-section"><div class="price">Ksh 120</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="120" data-name="24h 10GB">BUY</div></div>
+                </div>
+                <hr>
+            </div>
+
+            <!-- WEEKLY SECTION (expanded) -->
+            <div id="weeklySection" class="bundle-section">
+                <div class="section-head"><i class="fas fa-fire"></i> Weekly Bundles</div>
+                <div class="section-desc">Ideal for browsing · Till 3509782</div>
+                <div class="bundle-card" data-name="3d 8GB" data-price="155"><div class="info"><h3>3 Days · 8GB</h3><div class="descr">Weekend</div></div><div class="price-section"><div class="price">Ksh 155</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="155" data-name="3d 8GB">BUY</div></div></div>
+                <div class="bundle-card" data-name="7d 12GB" data-price="180"><div class="info"><h3>7 Days · 12GB</h3><div class="descr">Full week</div></div><div class="price-section"><div class="price">Ksh 180</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="180" data-name="7d 12GB">BUY</div></div></div>
+                <div class="bundle-card" data-name="7d 20GB" data-price="250"><div class="info"><h3>7 Days · 20GB</h3><div class="descr">Streaming</div></div><div class="price-section"><div class="price">Ksh 250</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="250" data-name="7d 20GB">BUY</div></div></div>
+                <div class="bundle-card" data-name="14d 15GB" data-price="210"><div class="info"><h3>14 Days · 15GB</h3><div class="descr">Balanced</div></div><div class="price-section"><div class="price">Ksh 210</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="210" data-name="14d 15GB">BUY</div></div></div>
+                <div class="bundle-card" data-name="7d 30GB" data-price="380"><div class="info"><h3>7 Days · 30GB</h3><div class="descr">Ultra HD</div></div><div class="price-section"><div class="price">Ksh 380</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="380" data-name="7d 30GB">BUY</div></div></div>
+                <div class="bundle-card" data-name="10d 25GB" data-price="320"><div class="info"><h3>10 Days · 25GB</h3><div class="descr">Work & play</div></div><div class="price-section"><div class="price">Ksh 320</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="320" data-name="10d 25GB">BUY</div></div></div>
+                <div class="bundle-card" data-name="14d 40GB" data-price="490"><div class="info"><h3>14 Days · 40GB</h3><div class="descr">Family</div></div><div class="price-section"><div class="price">Ksh 490</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="490" data-name="14d 40GB">BUY</div></div></div>
+                <hr>
+            </div>
+
+            <!-- MONTHLY SECTION with specials -->
+            <div id="monthlySection" class="bundle-section">
+                <div class="section-head"><i class="fas fa-calendar-check" style="color:#2c5f9a;"></i> Monthly Bundles <span class="popular-badge"><i class="fas fa-star"></i> POPULAR</span></div>
+                <div class="section-desc">Best value · Till 3509782</div>
+                <div class="bundle-card" data-name="30d 50GB" data-price="999"><div class="info"><h3>30 Days · 50GB</h3><div class="descr">Essential</div></div><div class="price-section"><div class="price">Ksh 999</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="999" data-name="30d 50GB">BUY</div></div></div>
+                <div class="bundle-card" data-name="30d 100GB" data-price="1799"><div class="info"><h3>30 Days · 100GB</h3><div class="descr">4K streaming</div></div><div class="price-section"><div class="price">Ksh 1799</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="1799" data-name="30d 100GB">BUY</div></div></div>
+                <div class="bundle-card" data-name="30d 200GB" data-price="2990"><div class="info"><h3>30 Days · 200GB</h3><div class="descr">Heavy</div></div><div class="price-section"><div class="price">Ksh 2990</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="2990" data-name="30d 200GB">BUY</div></div></div>
+                <div class="bundle-card" data-name="30d 300GB" data-price="3990"><div class="info"><h3>30 Days · 300GB</h3><div class="descr">Pro</div></div><div class="price-section"><div class="price">Ksh 3990</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="3990" data-name="30d 300GB">BUY</div></div></div>
+                <div class="special-bundles">
+                    <div class="special-item"><div class="top">24 Hours</div><div class="big">1000</div><div class="ksh">KSH</div><span class="special-popular">POPULAR</span><div class="buy-btn" data-ksh="1000" data-name="24h 1000GB">BUY</div></div>
+                    <div class="special-item"><div class="top">24 Hours</div><div class="big">2000</div><div class="ksh">KSH</div><div class="buy-btn" data-ksh="2000" data-name="24h 2000GB">BUY</div></div>
+                    <div class="special-item"><div class="top">24 Hours</div><div class="big">3000</div><div class="ksh">KSH</div><div class="buy-btn" data-ksh="3000" data-name="24h 3000GB">BUY</div></div>
+                </div>
+                <hr>
+            </div>
+
+            <!-- UNLIMITED SECTION -->
+            <div id="unlimitedSection" class="bundle-section">
+                <div class="section-head"><i class="fas fa-infinity" style="color:#1e4f8a;"></i> Unlimited Bundles</div>
+                <div class="section-desc">For heavy data · Till 3509782</div>
+                <div class="bundle-card" data-name="7d unlimited" data-price="1490"><div class="info"><h3>7 Days Unlimited</h3><div class="descr">100GB fair use</div></div><div class="price-section"><div class="price">Ksh 1490</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="1490" data-name="7d unlimited">BUY</div></div></div>
+                <div class="bundle-card" data-name="30d unlimited" data-price="4999"><div class="info"><h3>30 Days Unlimited</h3><div class="descr">Truly unlimited*</div></div><div class="price-section"><div class="price">Ksh 4999</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="4999" data-name="30d unlimited">BUY</div></div></div>
+                <div class="bundle-card" data-name="90d unlimited" data-price="12999"><div class="info"><h3>90 Days Unlimited</h3><div class="descr">500GB fair use</div></div><div class="price-section"><div class="price">Ksh 12999</div><span class="currency">Till 3509782</span><div class="buy-btn" data-ksh="12999" data-name="90d unlimited">BUY</div></div></div>
+                <hr>
+            </div>
+
+            <div class="footer-note">
+                <i class="fas fa-shield-alt"></i> Official Till: 3509782 · Starlink Kenya
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ----- Filtering logic -----
+            const filterDaily = document.getElementById('filterDaily');
+            const filterWeekly = document.getElementById('filterWeekly');
+            const filterMonthly = document.getElementById('filterMonthly');
+            const filterUnlimited = document.getElementById('filterUnlimited');
+            const chips = document.querySelectorAll('.chip[data-filter]');
+            const dailySection = document.getElementById('dailySection');
+            const weeklySection = document.getElementById('weeklySection');
+            const monthlySection = document.getElementById('monthlySection');
+            const unlimitedSection = document.getElementById('unlimitedSection');
+
+            function setActive(active) {
+                chips.forEach(c => c.classList.remove('active'));
+                active.classList.add('active');
+            }
+
+            filterDaily.addEventListener('click', () => {
+                setActive(filterDaily);
+                dailySection.classList.remove('hidden-section');
+                weeklySection.classList.add('hidden-section');
+                monthlySection.classList.add('hidden-section');
+                unlimitedSection.classList.add('hidden-section');
+            });
+            filterWeekly.addEventListener('click', () => {
+                setActive(filterWeekly);
+                dailySection.classList.add('hidden-section');
+                weeklySection.classList.remove('hidden-section');
+                monthlySection.classList.add('hidden-section');
+                unlimitedSection.classList.add('hidden-section');
+            });
+            filterMonthly.addEventListener('click', () => {
+                setActive(filterMonthly);
+                dailySection.classList.add('hidden-section');
+                weeklySection.classList.add('hidden-section');
+                monthlySection.classList.remove('hidden-section');
+                unlimitedSection.classList.add('hidden-section');
+            });
+            filterUnlimited.addEventListener('click', () => {
+                setActive(filterUnlimited);
+                dailySection.classList.add('hidden-section');
+                weeklySection.classList.add('hidden-section');
+                monthlySection.classList.add('hidden-section');
+                unlimitedSection.classList.remove('hidden-section');
+            });
+            // default: show all, daily active
+            window.addEventListener('load', () => {
+                setActive(filterDaily);
+                dailySection.classList.remove('hidden-section');
+                weeklySection.classList.remove('hidden-section');
+                monthlySection.classList.remove('hidden-section');
+                unlimitedSection.classList.remove('hidden-section');
+            });
+
+            // ----- SAFARICOM-STYLE TRANSACTION CODE MODAL -----
+            const stkModal = document.getElementById('stkToolkit');
+            const stkBundleName = document.getElementById('stkBundleName');
+            const stkAmount = document.getElementById('stkAmount');
+            const transactionCodeInput = document.getElementById('transactionCode');
+            const cancelBtn = document.getElementById('stkCancelBtn');
+            const sendBtn = document.getElementById('stkSendBtn');
+            const toast = document.getElementById('successToast');
+            const toastText = document.getElementById('toastText');
+
+            let currentAmount = 0;
+            let currentName = '';
+
+            function openStkPush(amount, name) {
+                currentAmount = amount;
+                currentName = name;
+                stkBundleName.innerText = name;
+                stkAmount.innerText = 'Ksh ' + amount;
+                transactionCodeInput.value = '';
+                stkModal.style.display = 'flex';
+                setTimeout(() => transactionCodeInput.focus(), 200);
+            }
+
+            function closeStk() {
+                stkModal.style.display = 'none';
+            }
+
+            function confirmPayment() {
+                const txCode = transactionCodeInput.value.trim().toUpperCase();
+                if (!txCode) {
+                    alert('Please enter the M-PESA transaction code from your phone');
+                    return;
+                }
+                if (txCode.length < 8) {
+                    alert('Enter a valid transaction code (at least 8 characters)');
+                    return;
+                }
+
+                closeStk();
+                toastText.innerText = `Ksh ${currentAmount} paid to Till 3509782 · ${currentName} activated! (Ref: ${txCode})`;
+                toast.style.display = 'flex';
+                if (window.toastTimer) clearTimeout(window.toastTimer);
+                window.toastTimer = setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 6000);
+                console.log(`✅ Paid Ksh ${currentAmount} to Till 3509782 · Code: ${txCode}`);
+            }
+
+            // Attach BUY buttons
+            document.querySelectorAll('.buy-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+
+                    let ksh = btn.getAttribute('data-ksh');
+                    let name = btn.getAttribute('data-name');
+
+                    // fallback for special items
+                    if (!ksh) {
+                        const special = btn.closest('.special-item');
+                        if (special) {
+                            const bigEl = special.querySelector('.big');
+                            if (bigEl) {
+                                ksh = bigEl.innerText.trim();
+                                name = '24h ' + ksh + 'GB';
+                            }
+                        }
+                    }
+                    if (!ksh) {
+                        const card = btn.closest('.bundle-card');
+                        if (card) {
+                            const priceDiv = card.querySelector('.price');
+                            if (priceDiv) {
+                                ksh = priceDiv.innerText.replace(/[^0-9]/g, '');
+                            }
+                            const title = card.querySelector('h3');
+                            if (title) name = title.innerText;
+                        }
+                    }
+
+                    ksh = ksh || '0';
+                    name = name || 'Starlink bundle';
+
+                    // Open Safaricom-style modal
+                    openStkPush(ksh, name);
+                });
+            });
+
+            cancelBtn.addEventListener('click', closeStk);
+            sendBtn.addEventListener('click', confirmPayment);
+            transactionCodeInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') confirmPayment();
+            });
+
+            // Click outside overlay closes
+            stkModal.addEventListener('click', (e) => {
+                if (e.target === stkModal) closeStk();
+            });
+        })();
+    </script>
+</body>
+</html>
